@@ -1,0 +1,91 @@
+/* Thiết lập font chữ và màu sắc chung */
+body {
+    font-family: Arial, sans-serif;
+    color      : #000000;
+
+    background-image: url("1.jpg");
+}
+
+.container {
+    width              : 1000px;
+    margin             : 0 auto;
+    text-align         : center;
+    background-color   : #fff;
+    padding            : 20px;
+    border-radius      : 5px;
+    box-shadow         : 0 2px 5px rgba(0, 0, 0, 0.1);
+    background-image   : url("1.jpg");
+    /* Đường dẫn đến hình ảnh nền */
+    background-size    : cover;
+    background-position: center;
+}
+
+h1 {
+    height          : 80px;
+    font-size       : 45px;
+    align-content   : center;
+    border          : 1px solid #ddd;
+    border-radius   : 5px;
+    background-color: #f9f9f9;
+    box-shadow      : 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition      : all 0.3s ease;
+}
+
+.data {
+    display        : flex;
+    flex-wrap      : wrap;
+    justify-content: center;
+}
+
+.data-item {
+    width           : 400px;
+    margin          : 10px;
+    padding         : 10px;
+    border          : 1px solid #ddd;
+    border-radius   : 5px;
+    background-color: #ffffff;
+    box-shadow      : 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition      : all 0.3s ease;
+}
+
+
+
+.data-item:hover,
+h1:hover {
+    transform : translateY(-5px);
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+}
+
+.data-item h2 {
+    color        : #000000;
+    font-size    : 30px;
+    margin-bottom: 10px;
+}
+
+.data-item p {
+    color    : #777;
+    font-size: 36px;
+}
+
+/* CSS và HTML của bạn ở đây */
+
+.dialog {
+    display         : none;
+    position        : fixed;
+    top             : 50%;
+    left            : 50%;
+    transform       : translate(-50%, -50%);
+    background-color: #000000;
+    padding         : 20px;
+    border-radius   : 5px;
+    box-shadow      : 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.dialog h2 {
+    color: #ff0000;
+    /* Màu đỏ */
+}
+
+.dialog p {
+    color: #ffffff;
+}

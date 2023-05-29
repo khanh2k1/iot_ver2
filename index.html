@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Thông tin môi trường</title>
+    <link rel="stylesheet" type="text/css" href="style.css" />
+
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Thông tin môi trường</h1>
+
+      <div class="data">
+        <!-- =========================================================== -->
+        <div class="data-item" id="temp">
+          <h2>Nhiệt độ</h2>
+          <p id="temperature">Loading...</p>
+          <div class="slider">
+            <input
+              type="range"
+              id="temperature-slider"
+              min="0"
+              max="100"
+              step="1"
+            />
+          </div>
+          <p id="temperature-value">0</p>
+        </div>
+
+        <!-- =========================================================== -->
+        <div class="data-item" id="soundd">
+          <h2>Cường độ âm thanh</h2>
+          <p id="sound">Loading...</p>
+          <div class="slider">
+            <input type="range" id="sound-slider" min="0" max="100" step="1" />
+          </div>
+          <p id="sound-value">0</p>
+        </div>
+
+        <!-- =========================================================== -->
+        <div class="data-item">
+          <h2>Độ ẩm</h2>
+          <p id="humidity">Loading...</p>
+        </div>
+
+        <!-- =========================================================== -->
+        <div class="data-item" id="qua">
+          <h2>Chất lượng không khí</h2>
+          <p id="air-quality">Loading...</p>
+
+          <div class="slider">
+            <input
+              type="range"
+              id="air-quality-slider"
+              min="0"
+              max="100"
+              step="1"
+            />
+          </div>
+          <p id="air-quality-value">0</p>
+        </div>
+        <!-- =========================================================== -->
+        
+      </div>
+    </div>
+
+    <div id="danger-dialog" class="dialog">
+      <h2>Nguy hiểm!</h2>
+      <p>Nhiệt độ đang vượt quá mức cho phép!</p>
+      <button id="close-dialog" onclick="closeDialog()">Đóng</button>
+    </div>
+
+    <script src="firebase.confg.js"></script>
+    <script src="script.js"></script>
+  </body>
+</html>
