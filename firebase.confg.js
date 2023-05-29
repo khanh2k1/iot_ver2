@@ -90,7 +90,10 @@ document.getElementById("sound-slider").addEventListener("input", async function
   checkSafe();
 });
 
+
 // Cập nhật màu sắc và kiểm tra nhiệt độ nguy hiểm
+
+
 function checkSafe() {
   // Các mã lệnh cập nhật màu sắc
   // Kiểm tra nhiệt độ nguy hiểm và hiển thị dialog khi cần thiết
