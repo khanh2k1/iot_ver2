@@ -17,6 +17,7 @@ let temperature_safe, db_safe, ppm_safe;
 let temperature, humidity, db, ppm;
 
 let warning;
+let userClick = false;
 
 // Đọc dữ liệu từ Realtime Database
 database.ref().on("value", async (snapshot) => {
@@ -101,25 +102,39 @@ function checkSafe() {
   // Các mã lệnh cập nhật màu sắc
   // Kiểm tra nhiệt độ nguy hiểm và hiển thị dialog khi cần thiết
   if (temperature > temperature_safe) {
+    isWarning=true
     document.getElementById("temp").style.backgroundColor = "red";
+    database.ref().update({
+      warning: true,
+    });
   } else {
     document.getElementById("temp").style.backgroundColor = "white";
-  }
-
-  if (db > db_safe) {
-    document.getElementById("soundd").style.backgroundColor = "red";
-  } else {
-    document.getElementById("soundd").style.backgroundColor = "white";
     
   }
 
+  if (db > db_safe) {
+    isWarning=true
+    document.getElementById("soundd").style.backgroundColor = "red";
+    database.ref().update({
+      warning: true,
+    });
+  } else {
+    document.getElementById("soundd").style.backgroundColor = "white";
+  
+  }
+
   if (ppm > ppm_safe) {
+    isWarning=true
     document.getElementById("qua").style.backgroundColor = "red";
+    database.ref().update({
+      warning: true,
+    });
   } else {
     document.getElementById("qua").style.backgroundColor = "white";
   }
 
-  if (isWarning) {
+  console.log('isWarning = ', isWarning)
+  if (isWarning == true && userClick == false) {
     console.log("(if) open");
     modal.style.display = "block";
     audio.play();
@@ -131,7 +146,6 @@ function checkSafe() {
   }
 }
 
-// checkSafe()
 
 const openButton = document.getElementById("openButton");
 const modal = document.getElementById("myModal");
@@ -158,4 +172,7 @@ closeButton.addEventListener("click", () => {
   });
   audio.pause();
   modal.classList.remove("flash");
+  userClick=true
 });
+
+console.log('userclick = ', userClick)
