@@ -95,7 +95,15 @@ document
 
 // Cập nhật màu sắc và kiểm tra nhiệt độ nguy hiểm
 
-setInterval(checkSafe, 1000);
+setInterval(() => {
+  checkSafe();
+  let btn = document.getElementById("openButton");
+  if (warning == false) {
+    btn.style.color = "black";
+    btn.style.fontWeight = "600";
+    btn.style.fontSize = "30px";
+  }
+}, 1000);
 
 function checkSafe() {
   let isWarning = false;
@@ -149,11 +157,11 @@ function checkSafe() {
     modal.classList.add("flash");
   }
 
-  if(isWarning) {
-    let btn = document.getElementById("openButton")
-    btn.style.color = "red"
+  if (isWarning) {
+    let btn = document.getElementById("openButton");
+    btn.style.color = "red";
     btn.style.fontWeight = "700";
-    btn.style.fontSize = "32px"
+    btn.style.fontSize = "32px";
   }
 }
 
@@ -165,14 +173,14 @@ let audio = new Audio("/1.mp3");
 
 openButton.addEventListener("click", function () {
   if (temperature <= temperature_safe && db <= db_safe && ppm <= ppm_safe) {
-    console.log("warning is turn on but safe")
+    console.log("warning is turn on but safe");
     database.ref().update({
       warning: true,
     });
-    let btn = document.getElementById("openButton")
-    btn.style.color = "red"
+    let btn = document.getElementById("openButton");
+    btn.style.color = "red";
     btn.style.fontWeight = "700";
-    btn.style.fontSize = "32px"
+    btn.style.fontSize = "32px";
   } else {
     console.log("open");
     modal.style.display = "block";
@@ -185,8 +193,6 @@ openButton.addEventListener("click", function () {
   }
 });
 
-
-
 closeButton.addEventListener("click", () => {
   console.log("close");
   modal.style.display = "none";
@@ -196,6 +202,9 @@ closeButton.addEventListener("click", () => {
   audio.pause();
   modal.classList.remove("flash");
   userClick = true;
+  btn.style.color = "black";
+  btn.style.fontWeight = "600";
+  btn.style.fontSize = "30px";
 });
 
 console.log("userclick = ", userClick);
