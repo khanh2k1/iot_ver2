@@ -28,7 +28,7 @@ database.ref().on("value", async (snapshot) => {
 
   warning = await snapshot.val().warning;
   warning = Boolean(warning);
-
+  console.log(warning);
 
   temperature_safe = snapshot.val().temperatureSafe;
   db_safe = snapshot.val().dbSafe;
@@ -49,17 +49,16 @@ database.ref().on("value", async (snapshot) => {
 
   document.getElementById("air-quality-slider").value = await ppm_safe;
   document.getElementById("air-quality-value").innerHTML = ppm_safe;
-
 });
 
-
-
+checkSafe();
 // Cập nhật dữ liệu nhiệt độ, độ ẩm, cường độ âm thanh và chất lượng không khí khi người dùng điều chỉnh
 document
   .getElementById("temperature-slider")
   .addEventListener("input", async function () {
-    const temperatureValue = await document.getElementById("temperature-slider").value;
-      
+    const temperatureValue = await document.getElementById("temperature-slider")
+      .value;
+
     document.getElementById("temperature-value").innerHTML = temperatureValue;
     database.ref().update({
       temperatureSafe: parseFloat(temperatureValue),
@@ -71,7 +70,8 @@ document
 document
   .getElementById("air-quality-slider")
   .addEventListener("input", async function () {
-    const airQualityValue = await document.getElementById("air-quality-slider").value;
+    const airQualityValue = await document.getElementById("air-quality-slider")
+      .value;
     document.getElementById("air-quality-value").innerHTML = airQualityValue;
     database.ref().update({
       ppmSafe: parseInt(airQualityValue),
@@ -80,60 +80,56 @@ document
     checkSafe();
   });
 
-document.getElementById("sound-slider").addEventListener("input", async function () {
-  const soundValue = await document.getElementById("sound-slider").value;
-  document.getElementById("sound-value").innerHTML = soundValue;
-  database.ref().update({
-    dbSafe: parseInt(soundValue),
+document
+  .getElementById("sound-slider")
+  .addEventListener("input", async function () {
+    const soundValue = await document.getElementById("sound-slider").value;
+    document.getElementById("sound-value").innerHTML = soundValue;
+    database.ref().update({
+      dbSafe: parseInt(soundValue),
+    });
+
+    checkSafe();
   });
-
-  checkSafe();
-});
-
 
 // Cập nhật màu sắc và kiểm tra nhiệt độ nguy hiểm
 
+setInterval(checkSafe, 1000);
 
 function checkSafe() {
+  let isWarning = false;
   // Các mã lệnh cập nhật màu sắc
   // Kiểm tra nhiệt độ nguy hiểm và hiển thị dialog khi cần thiết
   if (temperature > temperature_safe) {
     document.getElementById("temp").style.backgroundColor = "red";
-    database.ref().update({
-      warning: true,
-    });
   } else {
     document.getElementById("temp").style.backgroundColor = "white";
-    database.ref().update({
-      warning: false,
-    });
   }
 
   if (db > db_safe) {
     document.getElementById("soundd").style.backgroundColor = "red";
-    database.ref().update({
-      warning: true,
-    });
   } else {
     document.getElementById("soundd").style.backgroundColor = "white";
-    database.ref().update({
-      warning: false,
-    });
+    
   }
 
   if (ppm > ppm_safe) {
     document.getElementById("qua").style.backgroundColor = "red";
+  } else {
+    document.getElementById("qua").style.backgroundColor = "white";
+  }
+
+  if (isWarning) {
+    console.log("(if) open");
+    modal.style.display = "block";
+    audio.play();
+    audio.loop = true;
     database.ref().update({
       warning: true,
     });
-  } else {
-    document.getElementById("qua").style.backgroundColor = "white";
-    database.ref().update({
-      warning: false,
-    });
+    modal.classList.add("flash");
   }
 }
-
 
 // checkSafe()
 
@@ -154,8 +150,6 @@ openButton.addEventListener("click", function () {
   modal.classList.add("flash");
 });
 
-
-
 closeButton.addEventListener("click", () => {
   console.log("close");
   modal.style.display = "none";
@@ -165,4 +159,3 @@ closeButton.addEventListener("click", () => {
   audio.pause();
   modal.classList.remove("flash");
 });
-
