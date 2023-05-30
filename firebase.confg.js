@@ -170,6 +170,13 @@ openButton.addEventListener("click", function () {
   modal.classList.add("flash");
 });
 
+openButton.addEventListener("click", function () {
+  if(temperature<=temperature_safe && db<=db_safe && ppm<=ppm_safe){
+  database.ref().update({
+    warning: true,
+  });
+});
+
 closeButton.addEventListener("click", () => {
   console.log("close");
   modal.style.display = "none";
