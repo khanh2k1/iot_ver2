@@ -148,6 +148,13 @@ function checkSafe() {
     });
     modal.classList.add("flash");
   }
+
+  if(isWarning) {
+    let btn = document.getElementById("openButton")
+    btn.style.color = "red"
+    btn.style.fontWeight = "700";
+    btn.style.fontSize = "32px"
+  }
 }
 
 const openButton = document.getElementById("openButton");
