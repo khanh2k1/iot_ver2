@@ -104,9 +104,11 @@ function checkSafe() {
   if (temperature > temperature_safe) {
     isWarning=true
     document.getElementById("temp").style.backgroundColor = "red";
-    database.ref().update({
-      warning: true,
-    });
+    if(userClick == false){
+      database.ref().update({
+        warning: true,
+      });
+    }
   } else {
     document.getElementById("temp").style.backgroundColor = "white";
     
@@ -115,9 +117,11 @@ function checkSafe() {
   if (db > db_safe) {
     isWarning=true
     document.getElementById("soundd").style.backgroundColor = "red";
-    database.ref().update({
-      warning: true,
-    });
+    if(userClick == false){
+      database.ref().update({
+        warning: true,
+      });
+    }
   } else {
     document.getElementById("soundd").style.backgroundColor = "white";
   
@@ -126,9 +130,11 @@ function checkSafe() {
   if (ppm > ppm_safe) {
     isWarning=true
     document.getElementById("qua").style.backgroundColor = "red";
-    database.ref().update({
-      warning: true,
-    });
+    if(userClick == false){
+      database.ref().update({
+        warning: true,
+      });
+    }
   } else {
     document.getElementById("qua").style.backgroundColor = "white";
   }
