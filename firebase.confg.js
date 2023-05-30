@@ -102,35 +102,33 @@ function checkSafe() {
   // Các mã lệnh cập nhật màu sắc
   // Kiểm tra nhiệt độ nguy hiểm và hiển thị dialog khi cần thiết
   if (temperature > temperature_safe) {
-    isWarning=true
+    isWarning = true;
     document.getElementById("temp").style.backgroundColor = "red";
-    if(userClick == false){
+    if (userClick == false) {
       database.ref().update({
         warning: true,
       });
     }
   } else {
     document.getElementById("temp").style.backgroundColor = "white";
-    
   }
 
   if (db > db_safe) {
-    isWarning=true
+    isWarning = true;
     document.getElementById("soundd").style.backgroundColor = "red";
-    if(userClick == false){
+    if (userClick == false) {
       database.ref().update({
         warning: true,
       });
     }
   } else {
     document.getElementById("soundd").style.backgroundColor = "white";
-  
   }
 
   if (ppm > ppm_safe) {
-    isWarning=true
+    isWarning = true;
     document.getElementById("qua").style.backgroundColor = "red";
-    if(userClick == false){
+    if (userClick == false) {
       database.ref().update({
         warning: true,
       });
@@ -139,7 +137,7 @@ function checkSafe() {
     document.getElementById("qua").style.backgroundColor = "white";
   }
 
-  console.log('isWarning = ', isWarning)
+  console.log("isWarning = ", isWarning);
   if (isWarning == true && userClick == false) {
     console.log("(if) open");
     modal.style.display = "block";
@@ -152,7 +150,6 @@ function checkSafe() {
   }
 }
 
-
 const openButton = document.getElementById("openButton");
 const modal = document.getElementById("myModal");
 const closeButton = document.getElementsByClassName("close")[0];
@@ -160,22 +157,24 @@ const closeButton = document.getElementsByClassName("close")[0];
 let audio = new Audio("/1.mp3");
 
 openButton.addEventListener("click", function () {
-  console.log("open");
-  modal.style.display = "block";
-  audio.play();
-  audio.loop = true;
-  database.ref().update({
-    warning: true,
-  });
-  modal.classList.add("flash");
+  if (temperature <= temperature_safe && db <= db_safe && ppm <= ppm_safe) {
+    console.log("warning is turn on but safe")
+    database.ref().update({
+      warning: true,
+    });
+  } else {
+    console.log("open");
+    modal.style.display = "block";
+    audio.play();
+    audio.loop = true;
+    database.ref().update({
+      warning: true,
+    });
+    modal.classList.add("flash");
+  }
 });
 
-openButton.addEventListener("click", function () {
-  if(temperature<=temperature_safe && db<=db_safe && ppm<=ppm_safe){
-  database.ref().update({
-    warning: true,
-  });
-});
+
 
 closeButton.addEventListener("click", () => {
   console.log("close");
@@ -185,7 +184,7 @@ closeButton.addEventListener("click", () => {
   });
   audio.pause();
   modal.classList.remove("flash");
-  userClick=true
+  userClick = true;
 });
 
-console.log('userclick = ', userClick)
+console.log("userclick = ", userClick);
