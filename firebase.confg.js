@@ -169,6 +169,10 @@ openButton.addEventListener("click", function () {
     database.ref().update({
       warning: true,
     });
+    let btn = document.getElementById("openButton")
+    btn.style.color = "red"
+    btn.style.fontWeight = "700";
+    btn.style.fontSize = "32px"
   } else {
     console.log("open");
     modal.style.display = "block";
